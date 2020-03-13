@@ -24,6 +24,7 @@ public class BuilderCube : MonoBehaviour
     public float timerOffset = 0.01f;
     public float cubeTimer = 1f;
 
+    public LayerMask layerMask;
     void OnAwake()
     {
         GetComponent<BoxCollider>().enabled = true;
@@ -49,7 +50,7 @@ public class BuilderCube : MonoBehaviour
 
     void DetectDistance()
     {
-        Vector3 offsetRay = new Vector3(0,0.5f,0);
+        Vector3 offsetRay = new Vector3(0,0.6f,0);
         RaycastHit hit;
         //Fires a raycast in each direction
         Ray rayDown = new Ray(transform.position, -Vector3.up);
@@ -79,7 +80,7 @@ public class BuilderCube : MonoBehaviour
         Ray rayBack = new Ray(transform.position, -Vector3.forward);
         Debug.DrawRay(transform.position, -Vector3.forward, Color.green);
 
-        if (Physics.Raycast(rayLeft, out hit, 1f))
+        if (Physics.Raycast(rayLeft, out hit, 1f, layerMask))
         {
             cubeLeft = true;
             //Debug.Log("Left");
@@ -89,7 +90,7 @@ public class BuilderCube : MonoBehaviour
         {
             cubeLeft = false;
         }
-        if (Physics.Raycast(rayRight, out hit, 1))
+        if (Physics.Raycast(rayRight, out hit, 1, layerMask))
         {
             cubeRight = true;
             //Debug.Log("Right");
@@ -98,7 +99,7 @@ public class BuilderCube : MonoBehaviour
         {
             cubeRight = false;
         }
-        if (Physics.Raycast(rayForward, out hit, 1))
+        if (Physics.Raycast(rayForward, out hit, 1, layerMask))
         {
             cubeForward = true;
             //Debug.Log("Forward");
@@ -107,7 +108,7 @@ public class BuilderCube : MonoBehaviour
         {
             cubeForward = false;
         }
-        if (Physics.Raycast(rayBack, out hit, 1))
+        if (Physics.Raycast(rayBack, out hit, 1, layerMask))
         {
             cubeBack = true;
             //Debug.Log("Back");
@@ -118,7 +119,7 @@ public class BuilderCube : MonoBehaviour
         }
 
         //Detects if there is an object next to the cube, if so changes the corresponding bool to true
-        if (Physics.Raycast(rayDown, out hit , 0.5f))
+        if (Physics.Raycast(rayDown, out hit , 0.5f, layerMask))
         {
             cubeDown = true;
             //Debug.Log("Down");
@@ -127,7 +128,7 @@ public class BuilderCube : MonoBehaviour
         {
             cubeDown = false;
         }
-        if (Physics.Raycast(rayDownLeft, out hit, 1f) && cubeDown == false)
+        if (Physics.Raycast(rayDownLeft, out hit, 1f, layerMask) && cubeDown == false)
         {
             cubeDownLeft = true;
             //Debug.Log("DownLeft");
@@ -136,7 +137,7 @@ public class BuilderCube : MonoBehaviour
         {
             cubeDownLeft = false;
         }
-        if (Physics.Raycast(rayDownRight, out hit, 1f) && cubeDown == false)
+        if (Physics.Raycast(rayDownRight, out hit, 1f, layerMask) && cubeDown == false)
         {
             cubeDownRight = true;
             Debug.Log("DownRight");
@@ -146,7 +147,7 @@ public class BuilderCube : MonoBehaviour
         {
             cubeDownRight = false;
         }
-        if (Physics.Raycast(rayDownForward, out hit, 1f) && cubeDown == false)
+        if (Physics.Raycast(rayDownForward, out hit, 1f, layerMask) && cubeDown == false)
         {
             cubeDownForward = true;
             //Debug.Log("DownForward");
@@ -155,7 +156,7 @@ public class BuilderCube : MonoBehaviour
         {
             cubeDownForward = false;
         }
-        if (Physics.Raycast(rayDownBack, out hit, 1f) && cubeDown == false)
+        if (Physics.Raycast(rayDownBack, out hit, 1f, layerMask) && cubeDown == false)
         {
             cubeDownBack = true;
             Debug.Log("DownBack");
