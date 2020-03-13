@@ -60,7 +60,7 @@ public class Builder : MonoBehaviour
         {
             transform.Translate(-Vector3.forward);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) &&  placeableCubes != 0)
         {
             GameObject BuilderCubeTemp = ObjectPooler.SharedInstance.GetPooledObject("Builder Cube");
             if (BuilderCubeTemp != null)
@@ -69,6 +69,7 @@ public class Builder : MonoBehaviour
                 BuilderCubeTemp.transform.rotation = transform.rotation;
                 BuilderCubeTemp.SetActive(true);
             }
+            placeableCubes -= 1;
         }
     }
     void DetectDistance()

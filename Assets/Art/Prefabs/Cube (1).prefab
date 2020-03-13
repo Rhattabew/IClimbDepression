@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8296330807588877649}
   - component: {fileID: 8963289215256133932}
   - component: {fileID: 6830684359625137609}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (1)
   m_TagString: Builder Cube
   m_Icon: {fileID: 0}
@@ -117,3 +117,6 @@ MonoBehaviour:
   cubeBack: 0
   timerOffset: 0.01
   cubeTimer: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1024
