@@ -108,7 +108,7 @@ namespace SAE
 
         // Properties
         public static ArcadeMachine input;                                          // Singleton reference.
-        public bool useEvents = true;                                               // Allow invoking of events for button presses, axis changes etc
+        public bool useEvents = false;                                               // Allow invoking of events for button presses, axis changes etc
         public KeyCode resetPlayersKey = KeyCode.F11;                               // Clear all players joystick mapping and trigger ConfigurePlayers().
 
         public bool dontConfigureInEditor;                                          // If true, will just assign joysticks as they are detected automatically.
