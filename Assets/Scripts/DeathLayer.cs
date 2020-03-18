@@ -30,11 +30,11 @@ public class DeathLayer : MonoBehaviour
     }
 
     //collision
-    private void OnTriggerEnter(Collider other)
-    {
-        if ()
-        {
+   // private void OnTriggerEnter(Collider other)
+   // {
+   //     if ()
+   //     {
 
-        }
-    }
+   //     }
+  //  }
 }
