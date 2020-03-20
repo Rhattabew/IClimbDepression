@@ -19,10 +19,10 @@ public class ControlScene : MonoBehaviour
 
     void controllerComplete()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        /*if (ArcadeMachine.configuring = false)
         {
             DontDestroyOnLoad(this.gameObject);
 
-        }
+        }*/
     }
 }

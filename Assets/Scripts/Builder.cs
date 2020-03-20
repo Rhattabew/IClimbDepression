@@ -18,7 +18,7 @@ public class Builder : MonoBehaviour
     public bool cubeForward = false;
     public bool cubeBack = false;
 
-    public int placeableCubes = 5;
+    public int placeableCubes = 100;
 
 
     // Start is called before the first frame update
@@ -32,6 +32,7 @@ public class Builder : MonoBehaviour
     {
         DetectDistance();
         movement();
+        movementArcade();
     }
 
     void movement()
@@ -40,11 +41,11 @@ public class Builder : MonoBehaviour
         {
             transform.Translate(Vector3.up);
         }
-        if (Input.GetKeyDown(KeyCode.A) && cubeLeft == false && GameObject.transform.position.x != -2)
+        if (Input.GetKeyDown(KeyCode.A) && cubeLeft == false && transform.position.x != -2)
         {
             transform.Translate(Vector3.left);
         }
-        if (Input.GetKeyDown(KeyCode.D) && cubeRight == false && GameObject.transform.position.x != 2)
+        if (Input.GetKeyDown(KeyCode.D) && cubeRight == false && transform.position.x != 2)
         {
             transform.Translate(-Vector3.left);
         }
@@ -71,33 +72,36 @@ public class Builder : MonoBehaviour
             }
             placeableCubes -= 1;
         } 
-        void movementArcade()
+
+    }
+    void movementArcade()
     {
-        if (SAE.ArcadeMachine.instance.PlayerJoystickAxis(PlayerColorId) && cubeUp == false)
+        Vector2 axisValues = SAE.ArcadeMachine.PlayerJoystickAxisStatic(SAE.ArcadeMachine.PlayerColorId.YELLOW_PLAYER);
+        if (axisValues.y == 1f && cubeUp == false)
         {
             transform.Translate(Vector3.up);
         }
-        if (Input.GetKeyDown(KeyCode.A) && cubeLeft == false && GameObject.transform.position.x != -2)
+        if (axisValues.x == -1 && cubeLeft == false && transform.position.x != -2)
         {
             transform.Translate(Vector3.left);
         }
-        if (Input.GetKeyDown(KeyCode.D) && cubeRight == false && GameObject.transform.position.x != 2)
+        if (axisValues.x == 1 && cubeRight == false && transform.position.x != 2)
         {
             transform.Translate(-Vector3.left);
         }
-        if (Input.GetKeyDown(KeyCode.S) && cubeDown == false)
+        if (axisValues.y == -1 && cubeDown == false)
         {
             transform.Translate(-Vector3.up);
         }
-        if (Input.GetKeyDown(KeyCode.Q) && cubeForward == false)
+        if (SAE.ArcadeMachine.PlayerPressingButtonStatic(SAE.ArcadeMachine.PlayerColorId.YELLOW_PLAYER, 1, true) == true && cubeForward == false)
         {
             transform.Translate(Vector3.forward);
         }
-        if (Input.GetKeyDown(KeyCode.E) && cubeBack == false)
+        if (SAE.ArcadeMachine.PlayerPressingButtonStatic(SAE.ArcadeMachine.PlayerColorId.YELLOW_PLAYER, 2, true) == true && cubeBack == false)
         {
             transform.Translate(-Vector3.forward);
         }
-        if (Input.GetKeyDown(KeyCode.Space) &&  placeableCubes != 0)
+        if (SAE.ArcadeMachine.PlayerPressingButtonStatic(SAE.ArcadeMachine.PlayerColorId.YELLOW_PLAYER, 3, true) == true && placeableCubes != 0)
         {
             GameObject BuilderCubeTemp = ObjectPooler.SharedInstance.GetPooledObject("Builder Cube");
             if (BuilderCubeTemp != null)
@@ -110,6 +114,7 @@ public class Builder : MonoBehaviour
         }
     }
     void DetectDistance()
+
     {
         RaycastHit hit;
         //Fires a raycast in each direction

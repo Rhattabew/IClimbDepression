@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 /*
     Script: SAE.ArcadeMachine
@@ -114,7 +115,7 @@ namespace SAE
         public bool dontConfigureInEditor;                                          // If true, will just assign joysticks as they are detected automatically.
 
         private PlayerInput[] playerInputs;                                         // The 4 player inputs representing the joysticks & buttons.
-        private bool configuring;                                                   // Track the configuring state.
+        public bool configuring;                                                   // Track the configuring state.
 
         private float configurationStartTime;                                       // Used to give a few seconds before listen for buttons/axis when configuring.
         private float nextEventListenTime;                                          // Used to give a few seconds after configuring before listening for events.
@@ -415,6 +416,8 @@ Debug.Log( "[SAE.ArcadeMachine] " + playerInput.playerId.ToString() + " was assi
             this.configuring = false;
             this.nextEventListenTime = Time.unscaledTime + 2f;
             Debug.Log( "[SAE.ArcadeMachine] Finished configuration." );
+            SceneManager.LoadScene(2);
+
         }
 
         private bool GetKeyCodeJoystickAndButtonId( KeyCode keyCode, ref int joystickId, ref int buttonId )

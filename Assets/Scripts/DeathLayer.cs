@@ -30,11 +30,8 @@ public class DeathLayer : MonoBehaviour
     }
 
     //collision
-   // private void OnTriggerEnter(Collider other)
-   // {
-   //     if ()
-   //     {
-
-   //     }
-  //  }
+    private void OnTriggerEnter(Collision collision)
+    {
+        gameObject.SetActive(false);
+    }
 }

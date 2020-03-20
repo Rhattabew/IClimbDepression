@@ -320,7 +320,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1586931572}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 099b40129937a6c4e918fc319b785ee5, type: 3}
   m_Name: 
@@ -340,9 +340,10 @@ MonoBehaviour:
   configurationFinishedEvent:
     m_PersistentCalls:
       m_Calls: []
-  useEvents: 1
+  useEvents: 0
   resetPlayersKey: 292
   dontConfigureInEditor: 0
+  configuring: 0
 --- !u!4 &1586931574
 Transform:
   m_ObjectHideFlags: 0
