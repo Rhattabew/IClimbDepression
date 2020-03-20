@@ -48,24 +48,29 @@ public class Player : MonoBehaviour
 
     void Detect()
     {
-        Vector3 offsetRay = new Vector3(0, 0.6f, 0);
+        Vector3 offsetRay = new Vector3(0, 0.65f, 0);
         RaycastHit hit;
+        
         //Fires a raycast forward
-        Ray rayForward = new Ray(transform.position, Vector3.forward);
-        Debug.DrawRay(transform.position, Vector3.forward, Color.green);
+        Ray rayForward = new Ray(transform.position + offsetRay, transform.forward);
+        Debug.DrawRay(transform.position + offsetRay, Vector3.forward, Color.green);
+        
         //Fires a raycast forward down
-        Ray rayForwardDown = new Ray(transform.position - offsetRay, Vector3.forward);
-        Debug.DrawRay(transform.position - offsetRay, Vector3.forward, Color.red);
+        Ray rayForwardDown = new Ray(transform.position, transform.forward);
+        Debug.DrawRay(transform.position, Vector3.forward, Color.red);
+
         //Fires a raycast forward up
-        Ray rayForwardUp = new Ray(transform.position + offsetRay, Vector3.forward);
-        Debug.DrawRay(transform.position + offsetRay, Vector3.forward, Color.red);
+        Ray rayForwardUp = new Ray(transform.position + offsetRay*2, transform.forward);
+        Debug.DrawRay(transform.position + offsetRay*2, Vector3.forward, Color.red);
+
         //Fires a raycast up
-        Ray rayUp = new Ray(transform.position, Vector3.up);
-        Debug.DrawRay(transform.position, Vector3.up, Color.green);
+        Ray rayUp = new Ray(transform.position + offsetRay, Vector3.up);
+        Debug.DrawRay(transform.position + offsetRay, Vector3.up, Color.green);
         
         //Fires a raycast down
-        Ray rayDown = new Ray(transform.position, -Vector3.up);
-        Debug.DrawRay(transform.position, -Vector3.up, Color.green);
+        Ray rayDown = new Ray(transform.position + offsetRay, -Vector3.up);
+        Debug.DrawRay(transform.position + offsetRay, -Vector3.up, Color.green);
+        
 
         //Check forward
         if (Physics.Raycast(rayForward, out hit, 1f, check))
@@ -150,7 +155,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            transform.rotation = Quaternion.LookRotation(-Camera.main.transform.forward);
+            transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
@@ -158,7 +163,7 @@ public class Player : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+            transform.rotation = Quaternion.LookRotation(-Camera.main.transform.forward);
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
