@@ -40,11 +40,48 @@ public class Builder : MonoBehaviour
         {
             transform.Translate(Vector3.up);
         }
-        if (Input.GetKeyDown(KeyCode.A) && cubeLeft == false)
+        if (Input.GetKeyDown(KeyCode.A) && cubeLeft == false && GameObject.transform.position.x != -2)
         {
             transform.Translate(Vector3.left);
         }
-        if (Input.GetKeyDown(KeyCode.D) && cubeRight == false)
+        if (Input.GetKeyDown(KeyCode.D) && cubeRight == false && GameObject.transform.position.x != 2)
+        {
+            transform.Translate(-Vector3.left);
+        }
+        if (Input.GetKeyDown(KeyCode.S) && cubeDown == false)
+        {
+            transform.Translate(-Vector3.up);
+        }
+        if (Input.GetKeyDown(KeyCode.Q) && cubeForward == false)
+        {
+            transform.Translate(Vector3.forward);
+        }
+        if (Input.GetKeyDown(KeyCode.E) && cubeBack == false)
+        {
+            transform.Translate(-Vector3.forward);
+        }
+        if (Input.GetKeyDown(KeyCode.Space) &&  placeableCubes != 0)
+        {
+            GameObject BuilderCubeTemp = ObjectPooler.SharedInstance.GetPooledObject("Builder Cube");
+            if (BuilderCubeTemp != null)
+            {
+                BuilderCubeTemp.transform.position = transform.position;
+                BuilderCubeTemp.transform.rotation = transform.rotation;
+                BuilderCubeTemp.SetActive(true);
+            }
+            placeableCubes -= 1;
+        } 
+        void movementArcade()
+    {
+        if (SAE.ArcadeMachine.instance.PlayerJoystickAxis(PlayerColorId) && cubeUp == false)
+        {
+            transform.Translate(Vector3.up);
+        }
+        if (Input.GetKeyDown(KeyCode.A) && cubeLeft == false && GameObject.transform.position.x != -2)
+        {
+            transform.Translate(Vector3.left);
+        }
+        if (Input.GetKeyDown(KeyCode.D) && cubeRight == false && GameObject.transform.position.x != 2)
         {
             transform.Translate(-Vector3.left);
         }
