@@ -18,6 +18,9 @@ public class Player : MonoBehaviour
     public bool checkDown = true;
 
     public LayerMask check;
+    public float playerTimer = 1f;
+
+    public bool fall = false;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +31,19 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (playerTimer <= 0)
+        {
+            //Debug.Log("Timer 2");
+            Falling();
+        }
+        playerTimer -= Time.deltaTime;
+        
+        Detect();
+
+        if (fall == false)
+        {
+            Move();
+        }
     }
 
     void Detect()
@@ -53,7 +68,7 @@ public class Player : MonoBehaviour
         Debug.DrawRay(transform.position, -Vector3.up, Color.green);
 
         //Check forward
-        if (Physics.Raycast(rayForward, out hit, 1, check))
+        if (Physics.Raycast(rayForward, out hit, 4, check))
         {
             checkForward = true;
             Debug.Log("Forward: Detected");
@@ -64,7 +79,7 @@ public class Player : MonoBehaviour
             Debug.Log("Forward: Clear");
         }
         //Check forward down
-        if (Physics.Raycast(rayForwardDown, out hit, 1, check))
+        if (Physics.Raycast(rayForwardDown, out hit, 4, check))
         {
             checkForwardDown = true;
             Debug.Log("Forward Down: Detected");
@@ -75,7 +90,7 @@ public class Player : MonoBehaviour
             Debug.Log("Forward Down: Clear");
         }
         //Check forward up
-        if (Physics.Raycast(rayForwardUp, out hit, 1, check))
+        if (Physics.Raycast(rayForwardUp, out hit, 4, check))
         {
             checkForwardUp = true;
             Debug.Log("Forward Up: Detected");
@@ -86,7 +101,7 @@ public class Player : MonoBehaviour
             Debug.Log("Forward Up: Clear");
         }
         //Check up
-        if (Physics.Raycast(rayUp, out hit, 1, check))
+        if (Physics.Raycast(rayUp, out hit, 4, check))
         {
             checkUp = true;
             Debug.Log("Up: Detected");
@@ -98,7 +113,7 @@ public class Player : MonoBehaviour
         }
         
         //Check down
-        if (Physics.Raycast(rayDown, out hit, 0.5f, check))
+        if (Physics.Raycast(rayDown, out hit, 2, check))
         {
             checkDown = true;
             Debug.Log("Platform");
@@ -112,26 +127,24 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            transform.Rotate(0.0f, 0.0f, 0.0f, Space.World);
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            transform.Rotate(0.0f, 90.0f, 0.0f, Space.World);
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            transform.Rotate(0.0f, 180.0f, 0.0f, Space.World);
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            transform.Rotate(0.0f, 270.0f, 0.0f, Space.World);
-        }
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Detect();
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                transform.rotation = Quaternion.LookRotation(-Camera.main.transform.forward);
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                transform.rotation = Quaternion.LookRotation(Camera.main.transform.right);
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                transform.rotation = Quaternion.LookRotation(-Camera.main.transform.right);
+            }
 
             if (checkDown == false)
             {
@@ -151,5 +164,17 @@ public class Player : MonoBehaviour
                 transform.Translate(Vector3.forward);
             }
         }
+    }
+
+    void Falling()
+    {
+        Vector3 endPos = transform.position - new Vector3(0, 1, 0);
+        if (checkDown == false)
+        {
+            transform.position = Vector3.Lerp(transform.position, endPos, 0.5f);
+            //Debug.Log("Timer");
+            fall = true;
+        }
+        playerTimer = 0.5f;
     }
 }
