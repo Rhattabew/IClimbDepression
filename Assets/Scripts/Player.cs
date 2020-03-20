@@ -55,10 +55,10 @@ public class Player : MonoBehaviour
         Debug.DrawRay(transform.position, Vector3.forward, Color.green);
         //Fires a raycast forward down
         Ray rayForwardDown = new Ray(transform.position - offsetRay, Vector3.forward);
-        Debug.DrawRay(transform.position - offsetRay, Vector3.forward, Color.green);
+        Debug.DrawRay(transform.position - offsetRay, Vector3.forward, Color.red);
         //Fires a raycast forward up
         Ray rayForwardUp = new Ray(transform.position + offsetRay, Vector3.forward);
-        Debug.DrawRay(transform.position + offsetRay, Vector3.forward, Color.green);
+        Debug.DrawRay(transform.position + offsetRay, Vector3.forward, Color.red);
         //Fires a raycast up
         Ray rayUp = new Ray(transform.position, Vector3.up);
         Debug.DrawRay(transform.position, Vector3.up, Color.green);
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
         Debug.DrawRay(transform.position, -Vector3.up, Color.green);
 
         //Check forward
-        if (Physics.Raycast(rayForward, out hit, 4, check))
+        if (Physics.Raycast(rayForward, out hit, 1f, check))
         {
             checkForward = true;
             Debug.Log("Forward: Detected");
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
             Debug.Log("Forward: Clear");
         }
         //Check forward down
-        if (Physics.Raycast(rayForwardDown, out hit, 4, check))
+        if (Physics.Raycast(rayForwardDown, out hit, 1f, check))
         {
             checkForwardDown = true;
             Debug.Log("Forward Down: Detected");
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
             Debug.Log("Forward Down: Clear");
         }
         //Check forward up
-        if (Physics.Raycast(rayForwardUp, out hit, 4, check))
+        if (Physics.Raycast(rayForwardUp, out hit, 1f, check))
         {
             checkForwardUp = true;
             Debug.Log("Forward Up: Detected");
@@ -101,7 +101,7 @@ public class Player : MonoBehaviour
             Debug.Log("Forward Up: Clear");
         }
         //Check up
-        if (Physics.Raycast(rayUp, out hit, 4, check))
+        if (Physics.Raycast(rayUp, out hit, 1f, check))
         {
             checkUp = true;
             Debug.Log("Up: Detected");
@@ -113,10 +113,11 @@ public class Player : MonoBehaviour
         }
         
         //Check down
-        if (Physics.Raycast(rayDown, out hit, 2, check))
+        if (Physics.Raycast(rayDown, out hit, 0.5f, check))
         {
             checkDown = true;
             Debug.Log("Platform");
+            fall = false;
         }
         else
         {
@@ -127,25 +128,8 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.M))
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                transform.rotation = Quaternion.LookRotation(-Camera.main.transform.forward);
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                transform.rotation = Quaternion.LookRotation(Camera.main.transform.right);
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                transform.rotation = Quaternion.LookRotation(-Camera.main.transform.right);
-            }
-
             if (checkDown == false)
             {
                 //Player Fall
@@ -163,6 +147,22 @@ public class Player : MonoBehaviour
                 transform.Translate(Vector3.up);
                 transform.Translate(Vector3.forward);
             }
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            transform.rotation = Quaternion.LookRotation(-Camera.main.transform.forward);
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            transform.rotation = Quaternion.LookRotation(Camera.main.transform.right);
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            transform.rotation = Quaternion.LookRotation(-Camera.main.transform.right);
         }
     }
 
