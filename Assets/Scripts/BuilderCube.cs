@@ -41,7 +41,7 @@ public class BuilderCube : MonoBehaviour
     {
         if(cubeTimer <= 0)
         {
-            Debug.Log("Timer 2");
+            //Debug.Log("Timer 2");
             Falling();
         }
 
