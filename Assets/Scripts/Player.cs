@@ -112,6 +112,23 @@ public class Player : MonoBehaviour
 
     void Move()
     {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            transform.Rotate(0.0f, 0.0f, 0.0f, Space.World);
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            transform.Rotate(0.0f, 90.0f, 0.0f, Space.World);
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            transform.Rotate(0.0f, 180.0f, 0.0f, Space.World);
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            transform.Rotate(0.0f, 270.0f, 0.0f, Space.World);
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Detect();
@@ -133,7 +150,6 @@ public class Player : MonoBehaviour
                 transform.Translate(Vector3.up);
                 transform.Translate(Vector3.forward);
             }
-
         }
     }
 }
